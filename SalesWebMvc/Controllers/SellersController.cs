@@ -75,5 +75,32 @@ namespace SalesWebMvc.Controllers
 			}
 			return View(obj);
 		}
+		public IActionResult Edit(int? id)
+		{
+			if(id == null)
+			{
+				return NotFound();
+			}
+			var obj = SellerService.FindById(id.Value);
+			if(obj == null)
+			{
+				return NotFound();
+			}
+			var departments = DepartmentService.FindAll();
+			var ViewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+			return View(ViewModel);
+		}
+		
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Edit(int id, Seller seller)
+		{
+			if(id != seller.Id)
+			{
+				return NotFound();
+			}
+			SellerService.Update(seller);
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }
