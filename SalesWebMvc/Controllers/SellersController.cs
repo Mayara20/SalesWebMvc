@@ -4,6 +4,7 @@ using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,12 +45,12 @@ namespace SalesWebMvc.Controllers
 		{
 			if(id == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id does not exist" });
 			}
 			var obj = SellerService.FindById(id.Value);
 			if(obj == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id not found" });
 			}
 			return View(obj);
 		}
@@ -66,12 +67,12 @@ namespace SalesWebMvc.Controllers
 		{
 			if (id == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id does not exist" });
 			}
 			var obj = SellerService.FindById(id.Value);
 			if (obj == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id not found" });
 			}
 			return View(obj);
 		}
@@ -79,12 +80,12 @@ namespace SalesWebMvc.Controllers
 		{
 			if(id == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id does not exist" });
 			}
 			var obj = SellerService.FindById(id.Value);
 			if(obj == null)
 			{
-				return NotFound();
+				return RedirectToAction(nameof(Error), new { message = "Id not found" });
 			}
 			var departments = DepartmentService.FindAll();
 			var ViewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
@@ -99,8 +100,25 @@ namespace SalesWebMvc.Controllers
 			{
 				return NotFound();
 			}
-			SellerService.Update(seller);
-			return RedirectToAction(nameof(Index));
+			try
+			{
+				SellerService.Update(seller);
+				return RedirectToAction(nameof(Index));
+			}
+			catch(ApplicationException Ex)
+			{
+				return RedirectToAction(nameof(Error), new { message = Ex.Message });
+			}
+			
+		}
+		public IActionResult Error(string message)
+		{
+			var error = new ErrorViewModel
+			{
+				Message = message,
+				RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+			};
+			return View(error);
 		}
 	}
 }
