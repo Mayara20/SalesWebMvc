@@ -17,12 +17,11 @@ namespace SalesWebMvc.Data
 		}
 		public void Seed()
 		{
-			if(_context.Department.Any() 
-				|| _context.Seller.Any()
-				|| _context.SalesRecord.Any())
+			if(_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
 			{
 				return;
 			}
+
 			Department d1 = new Department(1, "Computers");
 			Department d2 = new Department(2, "Ferramentas");
 			Department d3 = new Department(3, "Fashion");
@@ -38,7 +37,7 @@ namespace SalesWebMvc.Data
 			Seller s6 = new Seller(6, "Ivete Santana Amazonas", "Santanaiveteam@gmail.com", new DateTime(1994, 11, 20), 3500.00, d1);
 
 			SalesRecord r1 = new SalesRecord(1, new DateTime(2021, 03, 25), 11000.0, SaleStatus.Pending, s1);
-			SalesRecord r2 = new SalesRecord(2, new DateTime(22, 03, 2021), 3000.0, SaleStatus.Billed, s5);
+			SalesRecord r2 = new SalesRecord(2, new DateTime(2021, 04, 22), 3000.0, SaleStatus.Billed, s5);
 			SalesRecord r3 = new SalesRecord(3, new DateTime(2021, 01, 13), 4000.0, SaleStatus.Canceled, s4);
 			SalesRecord r4 = new SalesRecord(4, new DateTime(2021, 01, 1), 8000.0, SaleStatus.Billed, s1);
 			SalesRecord r5 = new SalesRecord(5, new DateTime(2021, 01, 21), 3000.0, SaleStatus.Billed, s3);
@@ -47,7 +46,7 @@ namespace SalesWebMvc.Data
 			SalesRecord r8 = new SalesRecord(8, new DateTime(2021, 05, 11), 4000.0, SaleStatus.Billed, s4);
 			SalesRecord r9 = new SalesRecord(9, new DateTime(2021, 02, 14), 11000.0, SaleStatus.Pending, s6);
 			SalesRecord r10 = new SalesRecord(10, new DateTime(2021, 02, 7), 9000.0, SaleStatus.Billed, s6);
-			SalesRecord r11 = new SalesRecord(11, new DateTime(2021, 01, 13), 6000.0, SaleStatus.Billed, s2);
+			SalesRecord r11 = new SalesRecord(11, new DateTime(2021, 01, 15), 6000.0, SaleStatus.Billed, s2);
 			SalesRecord r12 = new SalesRecord(12, new DateTime(2021, 01, 25), 7000.0, SaleStatus.Pending, s3);
 			SalesRecord r13 = new SalesRecord(13, new DateTime(2021, 02, 11), 10000.0, SaleStatus.Billed, s4);
 			SalesRecord r14 = new SalesRecord(14, new DateTime(2021, 05, 4), 3000.0, SaleStatus.Billed, s5);
