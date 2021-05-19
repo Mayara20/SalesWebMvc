@@ -17,26 +17,26 @@ namespace SalesWebMvc.Services
 		{
 			_context = context;
 		}
-		public List<Seller> FindAll()
+		public async Task<List<Seller>> FindAllasync()
 		{
-			return _context.Seller.Include(obj => obj.Department).ToList();
+			return await _context.Seller.Include(obj => obj.Department).ToListAsync();
 		}
-		public void Insert(Seller Seller)
+		public async Task Insert(Seller Seller)
 		{ 
 			_context.Add(Seller);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 		}
-		public Seller FindById(int id)
+		public async Task<Seller> FindByIdasync(int id)
 		{
-			return _context.Seller.FirstOrDefault(x => x.Id == id);
+			return await _context.Seller.FirstOrDefaultAsync(x => x.Id == id);
 		}
-		public void Remove(int id)
+		public async Task Removeasync(int id)
 		{
 			var obj = _context.Seller.Find(id);
 			_context.Seller.Remove(obj);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 		}
-		public void Update(Seller obj)
+		public async Task Update(Seller obj)
 		{
 			if(!_context.Seller.Any(x => x.Id == obj.Id))
 			{
@@ -45,7 +45,7 @@ namespace SalesWebMvc.Services
 			try
 			{
 				_context.Update(obj);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 			}
 			catch(DbUpdateConcurrencyException Ex)
 			{

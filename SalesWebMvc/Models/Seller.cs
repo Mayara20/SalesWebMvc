@@ -10,17 +10,21 @@ namespace SalesWebMvc.Models
 	{
 		public int Id { get; set; }
 
-		
+		[StringLength(40, MinimumLength = 2, ErrorMessage = "{0} must be between {2} and {1}")]
 		public string Name { get; set; }
 
 		[DataType(DataType.EmailAddress)]
+		[Required(ErrorMessage = "{0} required")]
 		public string Email { get; set; }
 
 		[Display(Name = "Birth Date")]
+		[Required(ErrorMessage = "{0} required")]
+		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
 		public DateTime BirthDate { get; set; }
 
 		[Display(Name = "Base Salary")]
+		[Range(150.00, 40000.00, ErrorMessage = "{0} must be from {1} to {2}")]
 		[DisplayFormat(DataFormatString = "{0:F2}")]
 		public double BaseSalary { get; set; }
 		public Department Department { get; set; }
